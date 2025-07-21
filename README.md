@@ -6,8 +6,6 @@ As the global population ages, the demand for accessible, scalable tools to supp
 
 ## 🎯 Learning Outcomes
 
-By completing this project, students will:
-
 - Design LLM-powered interactions for verbal human-robot engagement based in the context of an interactive cognitive task (based on clinically validated cognitive tools).
 - Program and integrate robot behaviours using a 3D-printed robot platform for multimodal human-robot engagement.
 - Implement a machine learning pipeline to analyse cognitive state from speech and language features.
