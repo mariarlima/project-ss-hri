@@ -1,19 +1,25 @@
 # For testing with/without voice and/or robot 
 enable_TTS = True
-enable_blossom = True
+enable_blossom = False
 enable_STT = True
 
 delay_time = 3 # Start playing motion sequence after X seconds
 mic_time_offset = 0.01 # Time offset for mic to start recording in seconds
 pause_threshold = 2 # Only stop recording after X seconds of silence
-phrase_time_limit = 45 # Max duration of audio clip
+phrase_time_limit = 3 # Max duration of audio clip
 session_time_limit = 1.5 * 60 # min
 
-# TODO: adapt the prompt to the interactive cognitive task context
+# adapt the prompt to the interactive cognitive task context
 prompt = [
     {
-        "role": "system", 
-        "content": "You are an companion that can chat about any topic verbally. Be engaging and reply max 2 lines. No emojis"}
+        "role": "system",
+        "content": (
+            "You are a friendly and patient companion designed to chat verbally with elderly people. "
+            "Speak clearly, use simple language, and be encouraging. "
+            "Keep your replies short (max 2 lines), warm, and easy to understand. "
+            "Avoid technical terms and do not use emojis."
+        )
+    }
 ]
 
 whisper_model_id = "tiny.en"

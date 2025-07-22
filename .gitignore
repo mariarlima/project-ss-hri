@@ -1,3 +1,8 @@
 *.env
 *.mp3
-venv/
+.venv/
+Blossom-Controller/
+blossom-sdk
+conversation_logs
+*.wav
+__pycache__
