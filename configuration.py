@@ -13,7 +13,8 @@ session_time_limit = 1.5 * 60 # min
 prompt = [
     {
         "role": "system", 
-        "content": "You are an companion that can chat about any topic verbally. Be engaging and reply max 2 lines. No emojis"}
+        # change the system prompt for the cognitive task
+        "content": "You are a companion that can chat about any topic verbally. Be engaging and reply max 2 lines. No emojis"}
 ]
 
 whisper_model_id = "tiny.en"

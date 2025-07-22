@@ -1,0 +1,3366 @@
+{
+  "animation": "fear_1",
+  "frame_list": [
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 307,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 271,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 239,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 0.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 271,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 239,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 101.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 271,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 240,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 202.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 305,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 275,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 241,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 307.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 102
+        },
+        {
+          "dof": "tower_3",
+          "pos": 269,
+          "duration": 102
+        },
+        {
+          "dof": "tower_2",
+          "pos": 241,
+          "duration": 102
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 102
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 102
+        }
+      ],
+      "millis": 411.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 269,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 241,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 513.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 309,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 269,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 241,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 614.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 270,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 241,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 719.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 307,
+          "duration": 102
+        },
+        {
+          "dof": "tower_3",
+          "pos": 271,
+          "duration": 102
+        },
+        {
+          "dof": "tower_2",
+          "pos": 241,
+          "duration": 102
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 102
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 102
+        }
+      ],
+      "millis": 819.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 301,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 279,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 239,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 921.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 291,
+          "duration": 103
+        },
+        {
+          "dof": "tower_3",
+          "pos": 299,
+          "duration": 103
+        },
+        {
+          "dof": "tower_2",
+          "pos": 229,
+          "duration": 103
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 103
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 103
+        }
+      ],
+      "millis": 1025.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 282,
+          "duration": 102
+        },
+        {
+          "dof": "tower_3",
+          "pos": 334,
+          "duration": 102
+        },
+        {
+          "dof": "tower_2",
+          "pos": 203,
+          "duration": 102
+        },
+        {
+          "dof": "base",
+          "pos": 332,
+          "duration": 102
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 102
+        }
+      ],
+      "millis": 1128.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 281,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 368,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 170,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 320,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 1230.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 279,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 390,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 150,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 304,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 1334.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 277,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 401,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 140,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 296,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 1439.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 276,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 409,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 134,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 290,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 1543.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 274,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 417,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 128,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 281,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 1648.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 270,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 427,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 122,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 259,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 1752.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 269,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 429,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 120,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 251,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 1857.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 268,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 429,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 119,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 247,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 1957.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 280,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 427,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 117,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 218,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 2062.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 285,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 425,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 116,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 210,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 2167.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 292,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 422,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 114,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 206,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 2271.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 301,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 417,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 112,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 201,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 2371.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 312,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 410,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 110,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 196,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 2472.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 331,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 398,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 107,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 191,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 2577.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 349,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 386,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 104,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 186,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 2681.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 379,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 371,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 100,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 176,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 2786.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 379,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 372,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 100,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 177,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 2887.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 361,
+          "duration": 103
+        },
+        {
+          "dof": "tower_3",
+          "pos": 382,
+          "duration": 103
+        },
+        {
+          "dof": "tower_2",
+          "pos": 102,
+          "duration": 103
+        },
+        {
+          "dof": "base",
+          "pos": 179,
+          "duration": 103
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 103
+        }
+      ],
+      "millis": 2991.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 333,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 400,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 106,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 182,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 3094.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 305,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 415,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 111,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 189,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 3195.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 289,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 423,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 115,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 195,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 3296.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 282,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 427,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 117,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 199,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 3401.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 268,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 429,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 119,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 204,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 3505.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 269,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 428,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 122,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 216,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 3610.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 271,
+          "duration": 106
+        },
+        {
+          "dof": "tower_3",
+          "pos": 422,
+          "duration": 106
+        },
+        {
+          "dof": "tower_2",
+          "pos": 126,
+          "duration": 106
+        },
+        {
+          "dof": "base",
+          "pos": 231,
+          "duration": 106
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 106
+        }
+      ],
+      "millis": 3714.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 287,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 391,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 141,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 258,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 3820.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 299,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 369,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 152,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 272,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 3924.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 344,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 167,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 284,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 4028.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 314,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 327,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 179,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 4132.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 316,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 318,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 186,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 4237.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 316,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 313,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 190,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 299,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 4341.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 316,
+          "duration": 103
+        },
+        {
+          "dof": "tower_3",
+          "pos": 311,
+          "duration": 103
+        },
+        {
+          "dof": "tower_2",
+          "pos": 193,
+          "duration": 103
+        },
+        {
+          "dof": "base",
+          "pos": 301,
+          "duration": 103
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 103
+        }
+      ],
+      "millis": 4442.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 315,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 311,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 193,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 302,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 4545.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 313,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 311,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 195,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 304,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 4649.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 312,
+          "duration": 102
+        },
+        {
+          "dof": "tower_3",
+          "pos": 311,
+          "duration": 102
+        },
+        {
+          "dof": "tower_2",
+          "pos": 196,
+          "duration": 102
+        },
+        {
+          "dof": "base",
+          "pos": 304,
+          "duration": 102
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 102
+        }
+      ],
+      "millis": 4750.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 311,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 310,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 198,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 305,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 4852.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 312,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 309,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 199,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 306,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 4957.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 313,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 309,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 197,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 304,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 5061.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 312,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 309,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 198,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 303,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 5166.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 312,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 308,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 199,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 303,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 5270.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 312,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 308,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 200,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 302,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 5375.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 313,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 306,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 200,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 302,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 5479.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 314,
+          "duration": 106
+        },
+        {
+          "dof": "tower_3",
+          "pos": 304,
+          "duration": 106
+        },
+        {
+          "dof": "tower_2",
+          "pos": 201,
+          "duration": 106
+        },
+        {
+          "dof": "base",
+          "pos": 302,
+          "duration": 106
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 106
+        }
+      ],
+      "millis": 5579.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 316,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 304,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 200,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 301,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 5685.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 316,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 305,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 199,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 301,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 5785.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 315,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 306,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 199,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 300,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 5886.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 310,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 302,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 196,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 301,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 5990.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 309,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 304,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 196,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 301,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 6094.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 304,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 197,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 301,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 6195.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 309,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 305,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 195,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 301,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 6295.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 308,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 307,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 194,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 299,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 6396.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 310,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 304,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 195,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 298,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 6501.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 311,
+          "duration": 103
+        },
+        {
+          "dof": "tower_3",
+          "pos": 302,
+          "duration": 103
+        },
+        {
+          "dof": "tower_2",
+          "pos": 196,
+          "duration": 103
+        },
+        {
+          "dof": "base",
+          "pos": 298,
+          "duration": 103
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 103
+        }
+      ],
+      "millis": 6602.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 311,
+          "duration": 106
+        },
+        {
+          "dof": "tower_3",
+          "pos": 302,
+          "duration": 106
+        },
+        {
+          "dof": "tower_2",
+          "pos": 196,
+          "duration": 106
+        },
+        {
+          "dof": "base",
+          "pos": 298,
+          "duration": 106
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 106
+        }
+      ],
+      "millis": 6705.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 311,
+          "duration": 101
+        },
+        {
+          "dof": "tower_3",
+          "pos": 298,
+          "duration": 101
+        },
+        {
+          "dof": "tower_2",
+          "pos": 201,
+          "duration": 101
+        },
+        {
+          "dof": "base",
+          "pos": 299,
+          "duration": 101
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 101
+        }
+      ],
+      "millis": 6811.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 311,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 288,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 210,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 303,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 6912.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 312,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 286,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 212,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 303,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 7012.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 313,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 286,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 210,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 300,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 7116.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 314,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 288,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 207,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 298,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 7221.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 313,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 286,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 210,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 298,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 7325.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 314,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 279,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 216,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 298,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 7430.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 317,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 276,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 217,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 7534.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 320,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 274,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 216,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 7639.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 311,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 302,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 196,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 298,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 7743.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 266,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 219,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 7848.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 265,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 219,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 7953.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 265,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 220,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 8057.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 323,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 265,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 219,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 8161.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 324,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 264,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 219,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 8266.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 324,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 264,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 219,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 297,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 8370.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 323,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 264,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 219,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 295,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 8475.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 323,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 264,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 219,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 295,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 8579.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 324,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 220,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 294,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 8684.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 324,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 220,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 293,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 8788.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 324,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 221,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 293,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 8893.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 323,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 222,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 293,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 8997.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 222,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 9102.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 222,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 9206.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 262,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 223,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 293,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 9311.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 223,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 293,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 9415.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 224,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 9520.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 224,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 9624.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 320,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 265,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 222,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 9728.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 264,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 223,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 9833.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 263,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 224,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 9938.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 261,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 226,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 293,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 10042.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 260,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 226,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 10147.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 259,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 227,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 10251.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 258,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 228,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 291,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 10356.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 323,
+          "duration": 100
+        },
+        {
+          "dof": "tower_3",
+          "pos": 256,
+          "duration": 100
+        },
+        {
+          "dof": "tower_2",
+          "pos": 230,
+          "duration": 100
+        },
+        {
+          "dof": "base",
+          "pos": 292,
+          "duration": 100
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 100
+        }
+      ],
+      "millis": 10456.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 323,
+          "duration": 103
+        },
+        {
+          "dof": "tower_3",
+          "pos": 256,
+          "duration": 103
+        },
+        {
+          "dof": "tower_2",
+          "pos": 230,
+          "duration": 103
+        },
+        {
+          "dof": "base",
+          "pos": 291,
+          "duration": 103
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 103
+        }
+      ],
+      "millis": 10556.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 103
+        },
+        {
+          "dof": "tower_3",
+          "pos": 256,
+          "duration": 103
+        },
+        {
+          "dof": "tower_2",
+          "pos": 230,
+          "duration": 103
+        },
+        {
+          "dof": "base",
+          "pos": 290,
+          "duration": 103
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 103
+        }
+      ],
+      "millis": 10659.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 256,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 230,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 290,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 10762.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 322,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 259,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 227,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 289,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 10867.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 258,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 229,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 289,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 10972.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 256,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 231,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 289,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 11076.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 255,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 232,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 289,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 11180.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 104
+        },
+        {
+          "dof": "tower_3",
+          "pos": 255,
+          "duration": 104
+        },
+        {
+          "dof": "tower_2",
+          "pos": 232,
+          "duration": 104
+        },
+        {
+          "dof": "base",
+          "pos": 289,
+          "duration": 104
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 104
+        }
+      ],
+      "millis": 11285.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 105
+        },
+        {
+          "dof": "tower_3",
+          "pos": 256,
+          "duration": 105
+        },
+        {
+          "dof": "tower_2",
+          "pos": 232,
+          "duration": 105
+        },
+        {
+          "dof": "base",
+          "pos": 289,
+          "duration": 105
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 105
+        }
+      ],
+      "millis": 11389.0
+    },
+    {
+      "positions": [
+        {
+          "dof": "tower_1",
+          "pos": 321,
+          "duration": 1000
+        },
+        {
+          "dof": "tower_3",
+          "pos": 256,
+          "duration": 1000
+        },
+        {
+          "dof": "tower_2",
+          "pos": 232,
+          "duration": 1000
+        },
+        {
+          "dof": "base",
+          "pos": 289,
+          "duration": 1000
+        },
+        {
+          "dof": "ears",
+          "pos": 325,
+          "duration": 1000
+        }
+      ],
+      "millis": 11494.0
+    }
+  ],
+  "label": "fear"
+}

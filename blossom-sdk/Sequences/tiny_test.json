@@ -1,0 +1,36 @@
+{
+  "animation": "tiny",
+  "frame_list": [
+    {
+      "positions": [
+        { "dof": "ears", "pos": 50, "duration": 1000 },
+        { "dof": "tower_1", "pos": 150, "duration": 1000 },
+        { "dof": "tower_3", "pos": 150, "duration": 1000 },
+        { "dof": "tower_2", "pos": 150, "duration": 1000 },
+        { "dof": "base", "pos": 150, "duration": 1000 }
+      ],
+      "millis": 0
+    },
+    {
+      "positions": [
+        { "dof": "ears", "pos": 130, "duration": 6000 },
+        { "dof": "tower_1", "pos": 0, "duration": 6000 },
+        { "dof": "tower_3", "pos": 0, "duration": 6000 },
+        { "dof": "tower_2", "pos": 0, "duration": 6000 },
+        { "dof": "base", "pos": 0, "duration": 6000 }
+      ],
+      "millis": 10000
+    },
+    {
+      "positions": [
+        { "dof": "ears", "pos": 50, "duration": 8000 },
+        { "dof": "tower_1", "pos": -150, "duration": 8000 },
+        { "dof": "tower_3", "pos": -150, "duration": 8000 },
+        { "dof": "tower_2", "pos": -150, "duration": 8000 },
+        { "dof": "base", "pos": -150, "duration": 8000 }
+      ],
+      "millis": 20000
+    }
+  ],
+  "label": "test"
+}

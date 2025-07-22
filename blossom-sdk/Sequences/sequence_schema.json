@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blossom Robot Sequence Schema",
+  "type": "object",
+  "properties": {
+    "animation": {
+      "type": "string",
+      "description": "Name of the animation sequence."
+    },
+    "frame_list": {
+      "type": "array",
+      "description": "List of frames in the animation sequence.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "positions": {
+            "type": "array",
+            "description": "List of positions for each degree of freedom.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "dof": {
+                  "type": "string",
+                  "description": "Degree of freedom (DOF) name, e.g., 'tower_1', 'base'."
+                },
+                "pos": {
+                  "type": "integer",
+                  "description": "Target position value for the DOF."
+                },
+                "duration": {
+                  "type": "number",
+                  "description": "Time in milliseconds for the DOF to reach the target position."
+                }
+              },
+              "required": ["dof", "pos", "duration"]
+            }
+          },
+          "millis": {
+            "type": "number",
+            "description": "Total duration in milliseconds for this frame."
+          }
+        },
+        "required": ["positions", "millis"]
+      }
+    },
+    "label": {
+      "type": "string",
+      "description": "Optional label for the sequence."
+    }
+  },
+  "required": ["animation", "frame_list", "label"]
+}
