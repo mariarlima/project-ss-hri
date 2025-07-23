@@ -20,31 +20,19 @@ import time
 import signal
 import sys
 import queue
+import websockets
+
 from queue import Queue, Empty
 from dotenv import load_dotenv
 from datetime import datetime
 from typing import Dict, List, Optional, Any
+from blossom_wrapper import BlossomWrapper
+BLOSSOM_AVAILABLE = False # Enable Blossom
 
-# Import your existing modules
-try:
-    from blossom_wrapper import BlossomWrapper
-    BLOSSOM_AVAILABLE = True
-except ImportError:
-    print("[Warning]: BlossomWrapper not available. Robot animations disabled.")
-    BLOSSOM_AVAILABLE = False
-
-# Check websockets version and import appropriately
-try:
-    import websockets
-    websockets_version = getattr(websockets, '__version__', '0.0')
-    print(f"[System]: Using websockets version {websockets_version}")
-except ImportError:
-    print("❌ Error: websockets not installed. Run: pip install websockets")
-    sys.exit(1)
-
-# Load environment variables
+# Load environment variables from .env file in the root file
 load_dotenv()
 
+# Class to set the message history fo the LLM to be ablo to know previous messages
 class MessageHistory:
     """Manages conversation message history"""
     
@@ -90,7 +78,7 @@ class MessageHistory:
             print(f"[History Error]: Failed to save conversation: {e}")
             return None
 
-class EnhancedRealtimeConversation:
+class InteractiveChatRT:
     """Enhanced Realtime API conversation system with Blossom integration"""
     
     def __init__(self, api_key: str, image_url: str = None):
@@ -115,8 +103,10 @@ class EnhancedRealtimeConversation:
         self.output_stream = None
         self.audio_queue = Queue()
         self.audio_buffer = b""
+        self.audio_start_time = 0
         
         # Turn-taking control
+        # Thi is used since it is hard do code the inerruptions part, and with this we can guarantee it listens to the user.
         self.ai_is_speaking = False
         self.listening_enabled = True
         self.audio_lock = threading.Lock()
@@ -124,6 +114,7 @@ class EnhancedRealtimeConversation:
         self.last_audio_time = 0
         self.response_complete_time = 0
         self.total_audio_received = 0
+        self.audio_playback_finished = False
         
         # Blossom integration
         self.blossom = None
@@ -186,7 +177,7 @@ Image URL: {self.image_url}
         """Initialize audio input and output"""
         try:
             # List available microphones
-            print("\n=== Available Microphones ===")
+            print("\n List of Available Microphones")
             for i in range(self.audio.get_device_count()):
                 info = self.audio.get_device_info_by_index(i)
                 if info['maxInputChannels'] > 0:
@@ -210,6 +201,8 @@ Image URL: {self.image_url}
                     test_stream.close()
                     
                     self.mic_index = mic_index
+
+                    # In case that mic_index is equal to None it just goes Default
                     selected_name = self.audio.get_device_info_by_index(mic_index)['name'] if mic_index else "Default"
                     print(f"[Audio]: Selected microphone: {selected_name}")
                     break
@@ -269,75 +262,49 @@ Image URL: {self.image_url}
         return (in_data, pyaudio.paContinue)
 
     def _audio_output_callback(self, in_data, frame_count, time_info, status):
-        """Handle audio output with proper buffering and turn-taking control"""
+        """Handle audio output with simple buffering"""
         try:
-            # Collect audio chunks until we have enough data
-            has_new_audio = False
-            while len(self.audio_buffer) < frame_count * 2:  # 2 bytes per sample
+            # Collect audio chunks
+            while len(self.audio_buffer) < frame_count * 2:
                 try:
                     chunk = self.audio_queue.get_nowait()
                     self.audio_buffer += chunk
-                    has_new_audio = True
-                    # Update last audio time when we receive new audio
-                    self.last_audio_time = time.time()
-                    with self.audio_lock:
-                        self.audio_playback_active = True
                 except Empty:
                     break
             
             bytes_needed = frame_count * 2
-            current_time = time.time()
             
             if len(self.audio_buffer) >= bytes_needed:
-                # Extract the needed audio data
                 output = self.audio_buffer[:bytes_needed]
                 self.audio_buffer = self.audio_buffer[bytes_needed:]
-                self.last_audio_time = current_time
                 return (output, pyaudio.paContinue)
+
             elif len(self.audio_buffer) > 0:
-                # Use what we have and pad with silence
                 output = self.audio_buffer + b'\x00' * (bytes_needed - len(self.audio_buffer))
                 self.audio_buffer = b""
-                self.last_audio_time = current_time
+                
+                # 🔍 Check if this was the last chunk and mic not yet reactivated
+                if not self.audio_buffer and self.ai_is_speaking and not self.audio_playback_finished:
+                    self.audio_playback_finished = True
+                    print("[Debug]: Audio buffer empty – reactivating microphone")
+                    threading.Thread(target=self._reactivate_microphone).start()
+                
                 return (output, pyaudio.paContinue)
+
             else:
-                # No audio available - check if we should reactivate listening
-                silence_duration = current_time - self.last_audio_time
-                response_age = current_time - self.response_complete_time if self.response_complete_time > 0 else 0
-                
-                # Debug info
-                if self.audio_playback_active and silence_duration > 0.3:
-                    print(f"[Debug]: Silence for {silence_duration:.2f}s, response age: {response_age:.2f}s, total audio: {self.total_audio_received:.2f}s")
-                
-                # Reactivate microphone if:
-                # 1. We were playing audio and now have 500ms+ silence, OR
-                # 2. Response completed 2+ seconds ago and we got minimal/no audio
-                should_reactivate = (
-                    (self.audio_playback_active and silence_duration > 0.5) or
-                    (self.response_complete_time > 0 and response_age > 2.0 and self.total_audio_received < 0.5)
-                )
-                
-                if should_reactivate:
-                    with self.audio_lock:
-                        self.audio_playback_active = False
-                        if self.ai_is_speaking:
-                            self.ai_is_speaking = False
-                            print("🎤 Audio playback finished - microphone reactivated")
-                            # Reset counters
-                            self.response_complete_time = 0
-                            self.total_audio_received = 0
-                
-                # Return silence
                 silence = b'\x00' * bytes_needed
+
+                # 🔍 Reactivate mic if it wasn't already
+                if self.ai_is_speaking and not self.audio_playback_finished:
+                    self.audio_playback_finished = True
+                    print("[Debug]: Silent fallback – reactivating microphone")
+                    threading.Timer(0.5, self._reactivate_microphone).start()
+
                 return (silence, pyaudio.paContinue)
+
                 
         except Exception as e:
             print(f"[Audio Output Error]: {e}")
-            # On error, ensure microphone gets reactivated
-            with self.audio_lock:
-                if self.ai_is_speaking:
-                    self.ai_is_speaking = False
-                    print("🎤 Audio error - microphone reactivated")
             silence = b'\x00' * (frame_count * 2)
             return (silence, pyaudio.paContinue)
 
@@ -428,9 +395,9 @@ Image URL: {self.image_url}
         with self.audio_lock:
             self.ai_is_speaking = speaking
             if speaking:
-                print("🔇 AI speaking - microphone muted")
+                print("AI speaking - microphone muted")
             else:
-                print("🎤 AI finished - microphone active")
+                print("AI finished - microphone active")
 
     async def _send_audio(self, audio_data):
         """Send audio data to Realtime API with turn-taking control"""
@@ -496,18 +463,18 @@ Image URL: {self.image_url}
             print("[System]: Session created successfully")
             
         elif event_type == "input_audio_buffer.speech_started":
-            print("🎤 Listening...")
+            print("Listening...")
             self.current_speech_start = time.time()
             
         elif event_type == "input_audio_buffer.speech_stopped":
-            print("🤖 Processing...")
+            print("Processing...")
             if hasattr(self, 'current_speech_start'):
                 speech_duration = time.time() - self.current_speech_start
                 self.performance_metrics['last_speech_duration'] = speech_duration
             
         elif event_type == "response.audio_transcript.started":
             # AI started speaking - disable listening
-            self.set_ai_speaking_state(True)
+            #self.set_ai_speaking_state(True)
             response_start_time = time.time()
             
         elif event_type == "conversation.item.input_audio_transcription.completed":
@@ -538,14 +505,9 @@ Image URL: {self.image_url}
                     
                     # Mark that we're receiving audio - this will disable listening
                     if not self.ai_is_speaking:
+                        self.audio_start_time = time.time()
                         self.set_ai_speaking_state(True)
-                        print(f"[Debug]: Started receiving audio, total so far: {self.total_audio_received:.2f}s")
-                    
-                    # Signal Blossom
-                    try:
-                        self.signal_queue.put(audio_duration, block=False)
-                    except queue.Full:
-                        pass  # Queue is full, skip this update
+                        print(f"[Debug]: Started receiving audio")
                         
                 except Exception as e:
                     print(f"[Audio Decode Error]: {e}")
@@ -563,16 +525,9 @@ Image URL: {self.image_url}
             
         elif event_type == "response.done":
             print(f"\n[Response complete] - Total audio received: {self.total_audio_received:.2f}s")
-            
-            # Mark when response completed for fallback reactivation
             self.response_complete_time = time.time()
-            
-            # If we received very little or no audio, reactivate immediately
-            if self.total_audio_received < 0.2:  # Less than 200ms of audio
-                print("[Debug]: Minimal audio received, reactivating microphone immediately")
-                self.set_ai_speaking_state(False)
-            
-            # Add assistant response to history
+
+            # Guarda o texto no histórico
             if current_response_text.strip():
                 self.history.add_message(
                     "assistant", 
@@ -584,20 +539,27 @@ Image URL: {self.image_url}
                         "audio_duration": self.total_audio_received
                     }
                 )
-            
-            # Get estimated audio length and trigger Blossom animation
+
+            # Trigger Blossom animation
             try:
                 estimated_audio_length = max(self.signal_queue.get(timeout=1.0), self.total_audio_received)
                 if estimated_audio_length > 0:
                     self._trigger_blossom_animation(estimated_audio_length, delay=0.0)
             except queue.Empty:
-                # Fallback: use total received audio or minimum 2s
                 fallback_duration = max(self.total_audio_received, 2.0)
                 self._trigger_blossom_animation(fallback_duration, delay=0.0)
-            
-            # Reset for next response
+
+            # Only reactivate microphone after safety delay
+            final_delay = max(self.total_audio_received, 0.3) + 0.8  # adiciona margem extra
+            print(f"[Debug]: Delaying mic reactivation by {final_delay:.2f}s")
+            threading.Timer(0.5, self._reactivate_microphone).start()  # 500ms delay
+
+            # Reset
+            self.audio_playback_finished = False  # Reset flag for next response
+
             current_response_text = ""
             response_start_time = None
+            self.total_audio_received = 0
             
         elif event_type == "response.cancelled":
             # AI response was cancelled - re-enable listening immediately since no audio
@@ -618,6 +580,11 @@ Image URL: {self.image_url}
                 "error",
                 {"error_details": event.get("error", {})}
             )
+
+    def _reactivate_microphone(self):
+        """Reactivate microphone after audio finishes"""
+        self.set_ai_speaking_state(False)
+        print("[Debug]: Microphone reactivated after audio completion")
 
     def evaluate_response(self, text):
         """Enhanced response evaluation"""
@@ -669,16 +636,18 @@ What do you notice first when you look at the image?"""
                     "content": [{"type": "text", "text": f"Image URL for reference: {self.image_url}. Guide the user to describe this image in detail."}]
                 }
             }
-            await self.websocket.send(json.dumps(image_context))
-        
+            await self.websocket.send(json.dumps(image_context))  # <-- Send image context, not response_request
+
         await self.websocket.send(json.dumps(greeting))
-        
+
         # Request response
         response_request = {
             "type": "response.create",
             "response": {"modalities": ["text", "audio"]}
         }
-        
+
+        # Mute microphone BEFORE requesting response to prevent feedback
+        self.set_ai_speaking_state(True)
         await self.websocket.send(json.dumps(response_request))
         
         # Log session start
@@ -693,14 +662,14 @@ What do you notice first when you look at the image?"""
         )
         
         print("\n" + "="*60)
-        print("🌸 Enhanced Conversation Started!")
+        print("Blossom Chat has Started!")
         if self.image_url:
-            print("🖼️  Image Description Session Active")
-            print(f"📸 Image: {self.image_url}")
+            print("Image Description Session Active")
+            print(f"Image: {self.image_url}")
         if self.blossom:
-            print("🤖 Blossom animations enabled")
-        print("💬 Start talking - I'll listen and respond")
-        print("⏹️  Press Ctrl+C to end the conversation")
+            print("Blossom animations enabled")
+        print("Start talking - I'll listen and respond")
+        print("⏹Press Ctrl+C to end the conversation")
         print("="*60)
         
         # Listen for responses
@@ -776,32 +745,24 @@ What do you notice first when you look at the image?"""
 
 def main():
     """Enhanced main entry point"""
-    print("🌸 Blossom Enhanced Realtime Conversation System")
+    print("Blossom Enhanced Realtime Conversation System")
     print("=" * 60)
     
     # Check API key
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
-        print("❌ Error: OPENAI_API_KEY not found in environment variables")
+        print("Error: OPENAI_API_KEY not found in environment variables")
         print("Please create a .env file with your OpenAI API key:")
         print("OPENAI_API_KEY=your_api_key_here")
         return
     
     # Get image URL from user or environment
-    image_url = os.getenv("IMAGE_URL")
-    if not image_url:
-        print("\n🖼️  Image Description Mode")
-        image_url = input("Enter image URL (or press Enter to skip): ").strip()
-        if not image_url:
-            print("[System]: No image provided - starting general conversation mode")
-            image_url = None
-        else:
-            print(f"[System]: Image URL set: {image_url}")
-    else:
-        print(f"[System]: Using image URL from environment: {image_url}")
+    image_url = "/home/pedrodias/Documents/git-repos/project-ss-hri/Cookie-Theft-Picture-4_W640.jpg"
+    if image_url and os.path.exists(image_url):
+        print(f"[System]: Using image URL: {image_url}")
     
     # Create and run enhanced conversation system
-    conversation = EnhancedRealtimeConversation(api_key, image_url)
+    conversation = InteractiveChatRT(api_key, image_url)
     
     # Setup graceful shutdown
     def signal_handler(signum, frame):
