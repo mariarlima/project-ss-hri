@@ -104,6 +104,8 @@ class InteractiveChatRT:
         self.audio_queue = Queue()
         self.audio_buffer = b""
         self.audio_start_time = 0
+        self.output_sample_rate = 24000  # Hz
+        self.output_sample_width = 2     # bytes (16-bit PCM)
         
         # Turn-taking control
         # Thi is used since it is hard do code the inerruptions part, and with this we can guarantee it listens to the user.
@@ -264,49 +266,54 @@ Image URL: {self.image_url}
     def _audio_output_callback(self, in_data, frame_count, time_info, status):
         """Handle audio output with simple buffering"""
         try:
-            # Collect audio chunks
+            # Collect audio chunks into buffer
             while len(self.audio_buffer) < frame_count * 2:
                 try:
                     chunk = self.audio_queue.get_nowait()
                     self.audio_buffer += chunk
                 except Empty:
                     break
-            
+
             bytes_needed = frame_count * 2
-            
+
+            # If enough audio available
             if len(self.audio_buffer) >= bytes_needed:
                 output = self.audio_buffer[:bytes_needed]
                 self.audio_buffer = self.audio_buffer[bytes_needed:]
                 return (output, pyaudio.paContinue)
 
+            # If partial audio is available
             elif len(self.audio_buffer) > 0:
                 output = self.audio_buffer + b'\x00' * (bytes_needed - len(self.audio_buffer))
                 self.audio_buffer = b""
-                
-                # 🔍 Check if this was the last chunk and mic not yet reactivated
-                if not self.audio_buffer and self.ai_is_speaking and not self.audio_playback_finished:
+
+                if self.ai_is_speaking and not self.audio_playback_finished:
                     self.audio_playback_finished = True
-                    print("[Debug]: Audio buffer empty – reactivating microphone")
-                    threading.Thread(target=self._reactivate_microphone).start()
-                
+                    print("[Debug]: Audio buffer empty (partial) – reactivating microphone with small delay")
+                    threading.Timer(0.4, self._reactivate_microphone).start()
+
                 return (output, pyaudio.paContinue)
 
+            # Buffer is empty – fallback to silence
             else:
                 silence = b'\x00' * bytes_needed
 
-                # 🔍 Reactivate mic if it wasn't already
+                # Estimate duration of silence based on sample rate and width
+                self.last_audio_chunk_duration = len(silence) / self.output_sample_rate / self.output_sample_width
+                delay = max(self.last_audio_chunk_duration, 0.3)  # fallback to at least 0.3s delay
+
                 if self.ai_is_speaking and not self.audio_playback_finished:
                     self.audio_playback_finished = True
-                    print("[Debug]: Silent fallback – reactivating microphone")
-                    threading.Timer(0.5, self._reactivate_microphone).start()
+                    print("[Debug]: Silent fallback – reactivating microphone after delay")
+                    #threading.Timer(delay, self._reactivate_microphone).start()
 
                 return (silence, pyaudio.paContinue)
 
-                
         except Exception as e:
             print(f"[Audio Output Error]: {e}")
             silence = b'\x00' * (frame_count * 2)
             return (silence, pyaudio.paContinue)
+
 
     async def connect(self):
         """Connect to OpenAI Realtime API"""
