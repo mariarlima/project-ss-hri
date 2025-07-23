@@ -7,13 +7,19 @@ from coloring_logger import logger
 
 class RAGSimilarityCheck():
   
-  def __init__(self, config):
+  def __init__(self, config=None, database_folder=None, embedding_model=None):
       
     self.config = config
     self.loaded_entries = []
     self.vector_db = []
-    self.database_folder = self.config["nativa_gpt"]["database_folder"]
-    self.embedding_model = self.config["nativa_gpt"]["embedding_model"]
+    
+    if config:
+      self.database_folder = self.config["nativa_gpt"]["database_folder"]
+      self.embedding_model = self.config["nativa_gpt"]["embedding_model"]
+    else:
+      self.database_folder = database_folder
+      self.embedding_model = embedding_model
+    
 
     if self.read_database_files():
       self.add_chunks_to_database()
@@ -69,7 +75,7 @@ class RAGSimilarityCheck():
       self.vector_db.append((entry, embedding, searchable_text))
       logger.info(f'Added entry {i+1}/{len(self.loaded_entries)} to the database')
 
-  def _extract_searchable_text(self, json_obj):
+  def _extract_searchable_text(self, json_obj, extract_type="word"):
     """Extract searchable text from JSON object"""
     if isinstance(json_obj, dict):
       # For your function format, extract name and description
@@ -80,9 +86,9 @@ class RAGSimilarityCheck():
         # Generic approach: concatenate all string values
         text_parts = []
         for key, value in json_obj.items():
-          if isinstance(value, str):
+          if isinstance(value, str) and extract_type == "text":
             text_parts.append(value)
-          elif isinstance(value, dict):
+          elif isinstance(value, dict) and extract_type == "dict":
             text_parts.append(self._extract_searchable_text(value))
         return ' '.join(text_parts)
     else:
@@ -107,18 +113,21 @@ class RAGSimilarityCheck():
 
 if __name__ == "__main__":
     
-    config_manager = ConfigManager(config_path="/home/pedrodias/Documents/git-repos/NativaGPT/config/config_default.json")
-    config = config_manager.get()
+    # config_manager = ConfigManager(config_path="/home/pedrodias/Documents/git-repos/NativaGPT/config/config_default.json")
+    # config = config_manager.get()
 
-    rag = RAGSimilarityCheck(config)
+    database_folder = "/home/pedrodias/Documents/git-repos/project-ss-hri/evaluation_metrics"
+    embedding_model = "hf.co/CompendiumLabs/bge-base-en-v1.5-gguf"
+
+    rag = RAGSimilarityCheck(database_folder=database_folder,
+                             embedding_model=embedding_model)
 
     input_query = input('Ask me a question: ')
     retrieved_knowledge = rag.retrieve(input_query)
     
     logger.info('Retrieved knowledge:')
-    for entry, similarity, searchable_text in retrieved_knowledge:
-        logger.info(f' - (similarity: {similarity:.2f})')
-        if isinstance(entry, dict):
-            logger.info(f'   JSON: {json.dumps(entry, indent=2)}')
-        else:
-            logger.info(f'   Text: {entry}')
+    for i, (entry, similarity, searchable_text) in enumerate(retrieved_knowledge):
+      if i >= 3:  # Stop after 3 results
+          break
+      logger.info(f' - (similarity: {similarity:.2f})')
+      logger.info(f'   Text: {entry}')

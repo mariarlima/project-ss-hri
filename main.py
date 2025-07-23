@@ -21,7 +21,8 @@ from configuration import (
     session_time_limit,
     phrase_time_limit,
     pause_threshold,
-    mic_time_offset
+    mic_time_offset,
+    image_path
 )
 
 # Load environment variables
@@ -94,8 +95,35 @@ def main():
             
             # Prompt the model to begin the session with logging
             initial_request_start = time.time()
-            initial_response = llm.request_response(text="Start")
+            initial_response = llm.request_response(text="Start the interaction, greet the user, and tell him to start describing the image.",
+                                                    image_path=image_path)
             initial_request_time = time.time() - initial_request_start
+
+            tts_th = threading.Thread(
+                target=tts.play_text_audio,
+                args=(initial_response,)
+            )
+            if enable_TTS:
+                tts_th.start()
+                tts_th.join()
+
+
+            try:
+                audio_length = signal_queue.get(timeout=10)
+            except queue.Empty:
+                audio_length = 2  # fallback default
+
+            # Start both threads simultaneously
+            robot_th = threading.Thread(
+                target=blossom.do_prompt_sequence_matching,
+                kwargs={"audio_length": audio_length, "delay_time": 0.0}  # No delay
+            )
+
+            # Start both at the same time
+            robot_th.start()
+
+            # Wait for both to complete
+            robot_th.join()
             
             # Log the initial interaction
             logger.log_interaction(
@@ -109,20 +137,20 @@ def main():
             logger.log_performance_metric("initial_llm_response_time", initial_request_time)
             
             # Play intro response if TTS enabled with logging
-            if enable_TTS:
-                intro_tts_start = time.time()
-                tts.play_text_audio(initial_response)
-                intro_tts_time = time.time() - intro_tts_start
+            # if enable_TTS:
+            #     intro_tts_start = time.time()
+            #     tts.play_text_audio(initial_response)
+            #     intro_tts_time = time.time() - intro_tts_start
                 
-                # Log audio generation
-                logger.log_audio(
-                    audio_type="output",
-                    audio_data=None,  # We don't have raw audio data here
-                    text="Starting Exercise",
-                    duration=intro_tts_time,
-                    is_cached=False
-                )
-                logger.log_performance_metric("intro_tts_time", intro_tts_time)
+            #     # Log audio generation
+            #     logger.log_audio(
+            #         audio_type="output",
+            #         audio_data=None,  # We don't have raw audio data here
+            #         text="Starting Exercise",
+            #         duration=intro_tts_time,
+            #         is_cached=False
+            #     )
+            #     logger.log_performance_metric("intro_tts_time", intro_tts_time)
             
             # Main interaction loop with comprehensive logging
             end_interaction = False
@@ -185,7 +213,8 @@ def main():
                     
                     # Request LLM response with detailed timing
                     llm_request_start = time.time()
-                    response = llm.request_response(text=user_input)
+                    response = llm.request_response(text=user_input, 
+                                                    addition_system_message="Did the user missed anything in its description? Is he repeating himself? Also if the user mentions something that is in the image, tell him to describe things around that. Give him some hints: eg. what is happening around the woman?.")
                     llm_response_time = time.time() - llm_request_start
                     
                     logger.log_performance_metric("llm_response_time", llm_response_time)
@@ -198,64 +227,25 @@ def main():
                     except queue.Empty:
                         audio_length = 2  # fallback default
 
-                    # Start Blossom and TTS threads (Blossom has optional delay)
+                    # Start both threads simultaneously
                     robot_th = threading.Thread(
                         target=blossom.do_prompt_sequence_matching,
-                        kwargs={
-                            "audio_length": audio_length,
-                            "delay_time": 2  # delay so robot waits a bit after TTS starts
-                        }
+                        kwargs={"audio_length": audio_length, "delay_time": 2.0}  # No delay
                     )
-                    robot_th.start()
+                    tts_th = threading.Thread(
+                        target=tts.play_text_audio,
+                        args=(response,)
+                    )
 
-                    # Start TTS in parallel (if enabled)
+                    # Start both at the same time
+                    robot_th.start()
                     if enable_TTS:
-                        tts_th = threading.Thread(
-                            target=tts.play_text_audio,
-                            args=(response,)
-                        )
                         tts_th.start()
 
-                        # Wait for both to complete
+                    # Wait for both to complete
+                    if enable_TTS:
                         tts_th.join()
-                        robot_th.join()
-                    else:
-                        robot_th.join()
-
-                    # Play LLM response with TTS if enabled
-                    # tts_duration = 0
-                    # if enable_TTS:
-                    #     tts_start_time = time.time()
-                        
-                    #     # Play the audio
-                    #     tts.play_text_audio(response)
-                        
-                    #     # Wait for the audio duration from the TTS module via signal_queue
-                    #     try:
-                    #         duration = signal_queue.get(timeout=10)  # Wait for duration from TTS
-                    #         tts_total_time = time.time() - tts_start_time
-                    #         tts_duration = duration
-                            
-                    #         # Log TTS performance
-                    #         logger.log_audio(
-                    #             audio_type="output",
-                    #             audio_data=None,
-                    #             text=response,
-                    #             duration=duration,
-                    #             is_cached=False  # Original TTS doesn't have caching
-                    #         )
-                    #         logger.log_performance_metric("tts_generation_time", tts_total_time)
-                    #         logger.log_performance_metric("tts_audio_duration", duration)
-                            
-                    #         print(f"[Timing]: TTS completed in {tts_total_time:.2f}s, audio duration: {duration:.2f}s")
-                            
-                    #         # Sleep for the audio duration to maintain conversation flow
-                    #         time.sleep(duration)
-                            
-                    #     except queue.Empty:
-                    #         warning_msg = "No duration received from TTS within timeout"
-                    #         print(f"[Warning]: {warning_msg}")
-                    #         logger.log_error("TTS_TIMEOUT", warning_msg)
+                    robot_th.join()
                     
                     # Calculate total interaction time
                     total_interaction_time = time.time() - interaction_start_time
@@ -268,7 +258,7 @@ def main():
                         "input_duration": input_duration,
                         "llm_response_time": llm_response_time,
                         "tts_enabled": enable_TTS,
-                        "tts_duration": tts_duration,
+                        #"tts_duration": tts_duration,
                         "total_time": total_interaction_time,
                         "user_input_length": len(user_input),
                         "response_length": len(response)
@@ -295,7 +285,7 @@ def main():
                             assistant_response="[SESSION_TERMINATED]",
                             metadata={"trigger_word": user_input, "session_duration": elapsed}
                         )
-                        end_interaction = True
+                        #end_interaction = True
                     
                 except KeyboardInterrupt:
                     print("\n[System]: Keyboard interrupt received")

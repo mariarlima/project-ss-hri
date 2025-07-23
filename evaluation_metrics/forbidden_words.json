@@ -1,0 +1,113 @@
+{
+  "forbidden_words": {
+    "death_related": [
+      "death", "dying", "die", "died", "dead", "deceased", "passed away",
+      "funeral", "burial", "grave", "cemetery", "morgue", "corpse",
+      "obituary", "coffin", "casket", "bury", "autopsy", "terminal"
+    ],
+    "violence": [
+      "kill", "murder", "assault", "attack", "violence", "hurt", "harm",
+      "abuse", "fight", "shoot", "stab", "beat", "punch", "weapon",
+      "gun", "knife", "blood", "injury", "wound", "violent"
+    ],
+    "mental_health_negative": [
+      "suicide", "suicidal", "depressed", "depression", "anxiety",
+      "panic", "mental illness", "crazy", "insane", "psychotic",
+      "breakdown", "therapy", "psychiatrist", "medication", "pills"
+    ],
+    "medical_alarming": [
+      "cancer", "tumor", "disease", "infection", "virus", "pandemic",
+      "epidemic", "symptoms", "diagnosis", "prognosis", "treatment",
+      "surgery", "operation", "hospital", "emergency", "stroke",
+      "heart attack", "alzheimer", "dementia", "disability", "chronic"
+    ],
+    "financial_stress": [
+      "broke", "bankrupt", "debt", "foreclosure", "eviction", "poverty",
+      "expensive", "costly", "unaffordable", "financial crisis",
+      "recession", "inflation", "taxes", "bills", "lawsuit"
+    ],
+    "isolation_loneliness": [
+      "alone", "lonely", "isolated", "abandoned", "forgotten", "ignored",
+      "rejected", "unwanted", "useless", "burden", "worthless",
+      "hopeless", "helpless", "desperate", "miserable"
+    ],
+    "technology_frustration": [
+      "complicated", "confusing", "difficult", "impossible", "broken",
+      "error", "crashed", "frozen", "virus", "hacked", "spam",
+      "scam", "fraud", "stolen", "lost"
+    ],
+    "aging_negative": [
+      "old", "elderly", "senior", "aged", "frail", "weak", "feeble",
+      "decrepit", "senile", "forgetful", "slow", "outdated",
+      "obsolete", "retired", "past prime", "over the hill"
+    ],
+    "emergency_panic": [
+      "emergency", "urgent", "critical", "dangerous", "risk", "warning",
+      "alert", "alarm", "crisis", "disaster", "catastrophe", "threat",
+      "immediate", "now", "hurry", "rush", "panic"
+    ],
+    "profanity_mild": [
+      "damn", "hell", "crap", "stupid", "idiot", "dumb", "fool",
+      "moron", "jerk", "loser", "hate", "disgusting", "awful",
+      "terrible", "horrible", "nightmare"
+    ]
+  },
+  "replacement_suggestions": {
+    "death_related": "passed on, no longer with us, resting, peaceful",
+    "violence": "disagreement, conflict, challenging situation",
+    "mental_health_negative": "feeling down, not your best day, seeking support",
+    "medical_alarming": "health concern, seeing a doctor, getting care",
+    "financial_stress": "budget conscious, managing expenses, being careful with money",
+    "isolation_loneliness": "spending quiet time, taking a moment for yourself, peaceful",
+    "technology_frustration": "learning something new, taking it step by step, practicing",
+    "aging_negative": "experienced, wise, seasoned, mature, knowledgeable",
+    "emergency_panic": "important, when convenient, at your pace, no rush",
+    "profanity_mild": "challenging, disappointing, not ideal, could be better"
+  },
+  "context_exceptions": [
+    {
+      "word": "medicine",
+      "allowed_context": "daily medicine routine, taking your medicine",
+      "forbidden_context": "need strong medicine, dangerous medicine"
+    },
+    {
+      "word": "doctor",
+      "allowed_context": "visiting your doctor, doctor says you're doing well",
+      "forbidden_context": "urgent doctor visit, doctor is worried"
+    },
+    {
+      "word": "family",
+      "allowed_context": "loving family, family visit, family photos",
+      "forbidden_context": "family problems, family doesn't visit"
+    }
+  ],
+  "severity_levels": {
+    "high": ["death", "suicide", "kill", "murder", "cancer", "stroke"],
+    "medium": ["depressed", "anxiety", "broke", "lonely", "complicated", "emergency"],
+    "low": ["old", "slow", "expensive", "difficult", "tired", "forget"]
+  },
+  "positive_alternatives": {
+    "descriptive": [
+      "wonderful", "lovely", "pleasant", "comfortable", "peaceful",
+      "gentle", "kind", "caring", "helpful", "friendly", "warm",
+      "cozy", "relaxing", "enjoyable", "delightful", "cheerful"
+    ],
+    "encouraging": [
+      "you're doing great", "that's wonderful", "how nice", "that sounds lovely",
+      "you're so thoughtful", "what a good idea", "that's interesting",
+      "tell me more", "that sounds pleasant", "how wonderful"
+    ],
+    "supportive": [
+      "take your time", "no worries", "that's perfectly fine", "you're learning",
+      "everyone goes at their own pace", "that's understandable",
+      "you're doing your best", "that's okay", "we can try again"
+    ]
+  },
+  "config": {
+    "case_sensitive": false,
+    "check_partial_matches": true,
+    "log_filtered_words": true,
+    "replacement_mode": "auto_suggest",
+    "severity_threshold": "medium"
+  }
+}

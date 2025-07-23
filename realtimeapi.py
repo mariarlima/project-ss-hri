@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Simple OpenAI Realtime API Conversation System
-A clean, single-file implementation for elderly-friendly voice conversations.
+Enhanced OpenAI Realtime API Conversation System
+Integrated with Blossom wrapper, image analysis, and comprehensive logging.
 
 Requirements:
 pip install websockets>=10.0 pyaudio python-dotenv
@@ -19,13 +19,23 @@ import threading
 import time
 import signal
 import sys
+import queue
 from queue import Queue, Empty
 from dotenv import load_dotenv
+from datetime import datetime
+from typing import Dict, List, Optional, Any
+
+# Import your existing modules
+try:
+    from blossom_wrapper import BlossomWrapper
+    BLOSSOM_AVAILABLE = True
+except ImportError:
+    print("[Warning]: BlossomWrapper not available. Robot animations disabled.")
+    BLOSSOM_AVAILABLE = False
 
 # Check websockets version and import appropriately
 try:
     import websockets
-    # Test if we have the modern version
     websockets_version = getattr(websockets, '__version__', '0.0')
     print(f"[System]: Using websockets version {websockets_version}")
 except ImportError:
@@ -35,18 +45,64 @@ except ImportError:
 # Load environment variables
 load_dotenv()
 
-class RealtimeConversation:
-    """Simple Realtime API conversation system"""
+class MessageHistory:
+    """Manages conversation message history"""
     
-    def __init__(self, api_key):
+    def __init__(self):
+        self.messages: List[Dict[str, Any]] = []
+        self.session_start_time = datetime.now()
+        self.session_id = f"session_{int(time.time())}"
+    
+    def add_message(self, role: str, content: str, message_type: str = "text", metadata: Optional[Dict] = None):
+        """Add a message to history"""
+        message = {
+            "timestamp": datetime.now().isoformat(),
+            "role": role,  # "user", "assistant", "system"
+            "content": content,
+            "type": message_type,  # "text", "audio", "image"
+            "metadata": metadata or {}
+        }
+        self.messages.append(message)
+        return message
+    
+    def get_conversation_summary(self) -> Dict[str, Any]:
+        """Get a summary of the conversation"""
+        return {
+            "session_id": self.session_id,
+            "start_time": self.session_start_time.isoformat(),
+            "message_count": len(self.messages),
+            "duration_minutes": (datetime.now() - self.session_start_time).total_seconds() / 60,
+            "messages": self.messages
+        }
+    
+    def save_to_file(self, filename: Optional[str] = None):
+        """Save conversation history to JSON file"""
+        if not filename:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"conversation_{self.session_id}_{timestamp}.json"
+        
+        try:
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(self.get_conversation_summary(), f, indent=2, ensure_ascii=False)
+            print(f"[History]: Conversation saved to {filename}")
+            return filename
+        except Exception as e:
+            print(f"[History Error]: Failed to save conversation: {e}")
+            return None
+
+class EnhancedRealtimeConversation:
+    """Enhanced Realtime API conversation system with Blossom integration"""
+    
+    def __init__(self, api_key: str, image_url: str = None):
         self.api_key = api_key
+        self.image_url = image_url
         
         # WebSocket connection
         self.websocket = None
         self.connected = False
         self.running = False
         
-        # Audio configuration - FIXED for proper audio quality
+        # Audio configuration
         self.sample_rate = 24000  # OpenAI Realtime API outputs at 24kHz
         self.input_sample_rate = 16000  # Input to API must be 16kHz
         self.channels = 1
@@ -58,18 +114,73 @@ class RealtimeConversation:
         self.input_stream = None
         self.output_stream = None
         self.audio_queue = Queue()
-        self.audio_buffer = b""  # Buffer for proper audio assembly
+        self.audio_buffer = b""
         
-        # System prompt for elderly-friendly responses
-        self.system_prompt = """You are Blossom, a friendly AI companion for elderly users. 
-        Keep responses short (under 200 characters), use simple language, be warm and encouraging. 
-        Avoid complex topics or technical terms. Focus on being a supportive, patient companion."""
+        # Turn-taking control
+        self.ai_is_speaking = False
+        self.listening_enabled = True
+        self.audio_lock = threading.Lock()
+        self.audio_playback_active = False
+        self.last_audio_time = 0
+        self.response_complete_time = 0
+        self.total_audio_received = 0
         
-        # Response evaluation for elderly users
+        # Blossom integration
+        self.blossom = None
+        self.signal_queue = queue.Queue()  # For TTS-Blossom coordination
+        if BLOSSOM_AVAILABLE:
+            try:
+                self.blossom = BlossomWrapper()
+                print("[System]: Blossom wrapper initialized successfully")
+            except Exception as e:
+                print(f"[Blossom Warning]: Failed to initialize Blossom: {e}")
+                self.blossom = None
+        
+        # Message history
+        self.history = MessageHistory()
+        
+        # Enhanced system prompt for image description
+        self.system_prompt = self._build_system_prompt()
+        
+        # Response evaluation
         self.forbidden_words = ['death', 'dying', 'kill', 'suicide', 'depressed']
-        self.max_response_length = 200
+        self.max_response_length = 300  # Increased for image descriptions
         
-        print("[System]: Realtime Conversation System initialized")
+        # Performance tracking
+        self.performance_metrics = {}
+        
+        print("[System]: Enhanced Realtime Conversation System initialized")
+
+    def _build_system_prompt(self) -> str:
+        """Build the system prompt based on whether image is provided"""
+        base_prompt = """You are Blossom, a friendly AI companion designed to help elderly users engage in meaningful conversations about visual content. 
+
+Your primary role is to guide users through describing images in detail, helping them observe and articulate what they see while providing gentle encouragement and support.
+
+Guidelines:
+- Keep responses concise but warm (under 300 characters for speech)
+- Use simple, clear language appropriate for elderly users
+- Be patient and encouraging
+- Ask follow-up questions to help users notice more details
+- Provide gentle hints when users seem stuck
+- Celebrate their observations and descriptions
+- If users repeat themselves, acknowledge it kindly and guide them to new aspects"""
+
+        if self.image_url:
+            image_prompt = f"""
+
+IMPORTANT: An image has been provided for the user to describe. Your task is to:
+1. Initially greet the user warmly and explain that you'd like them to describe the image they're seeing
+2. Guide them through describing different aspects: people, objects, colors, settings, emotions, actions
+3. Ask specific follow-up questions like "What do you notice about the person's expression?" or "What's happening in the background?"
+4. Help them explore details they might miss
+5. Keep the conversation focused on the image description exercise
+
+Image URL: {self.image_url}
+"""
+            return base_prompt + image_prompt
+        
+        return base_prompt
 
     def setup_audio(self):
         """Initialize audio input and output"""
@@ -113,13 +224,13 @@ class RealtimeConversation:
             return False
 
     def start_audio_streams(self):
-        """Start audio input and output streams with correct sample rates"""
+        """Start audio input and output streams"""
         try:
             # Input stream for recording (16kHz for API)
             self.input_stream = self.audio.open(
                 format=self.audio_format,
                 channels=self.channels,
-                rate=self.input_sample_rate,  # 16kHz for input
+                rate=self.input_sample_rate,
                 input=True,
                 input_device_index=self.mic_index,
                 frames_per_buffer=self.chunk_size,
@@ -130,7 +241,7 @@ class RealtimeConversation:
             self.output_stream = self.audio.open(
                 format=self.audio_format,
                 channels=self.channels,
-                rate=self.sample_rate,  # 24kHz for output
+                rate=self.sample_rate,
                 output=True,
                 frames_per_buffer=self.chunk_size,
                 stream_callback=self._audio_output_callback
@@ -147,45 +258,86 @@ class RealtimeConversation:
             return False
 
     def _audio_input_callback(self, in_data, frame_count, time_info, status):
-        """Handle audio input - send to Realtime API"""
-        if self.connected and self.running:
-            # Send audio to Realtime API (non-blocking)
-            asyncio.run_coroutine_threadsafe(
-                self._send_audio(in_data), 
-                self.event_loop
-            )
+        """Handle audio input - send to Realtime API only when not speaking"""
+        with self.audio_lock:
+            if self.connected and self.running and self.listening_enabled and not self.ai_is_speaking:
+                # Send audio to Realtime API (non-blocking)
+                asyncio.run_coroutine_threadsafe(
+                    self._send_audio(in_data), 
+                    self.event_loop
+                )
         return (in_data, pyaudio.paContinue)
 
     def _audio_output_callback(self, in_data, frame_count, time_info, status):
-        """Handle audio output - play received audio with proper buffering"""
+        """Handle audio output with proper buffering and turn-taking control"""
         try:
             # Collect audio chunks until we have enough data
+            has_new_audio = False
             while len(self.audio_buffer) < frame_count * 2:  # 2 bytes per sample
                 try:
                     chunk = self.audio_queue.get_nowait()
                     self.audio_buffer += chunk
+                    has_new_audio = True
+                    # Update last audio time when we receive new audio
+                    self.last_audio_time = time.time()
+                    with self.audio_lock:
+                        self.audio_playback_active = True
                 except Empty:
                     break
             
             bytes_needed = frame_count * 2
+            current_time = time.time()
             
             if len(self.audio_buffer) >= bytes_needed:
                 # Extract the needed audio data
                 output = self.audio_buffer[:bytes_needed]
                 self.audio_buffer = self.audio_buffer[bytes_needed:]
+                self.last_audio_time = current_time
                 return (output, pyaudio.paContinue)
             elif len(self.audio_buffer) > 0:
                 # Use what we have and pad with silence
                 output = self.audio_buffer + b'\x00' * (bytes_needed - len(self.audio_buffer))
                 self.audio_buffer = b""
+                self.last_audio_time = current_time
                 return (output, pyaudio.paContinue)
             else:
-                # No audio available - return silence
+                # No audio available - check if we should reactivate listening
+                silence_duration = current_time - self.last_audio_time
+                response_age = current_time - self.response_complete_time if self.response_complete_time > 0 else 0
+                
+                # Debug info
+                if self.audio_playback_active and silence_duration > 0.3:
+                    print(f"[Debug]: Silence for {silence_duration:.2f}s, response age: {response_age:.2f}s, total audio: {self.total_audio_received:.2f}s")
+                
+                # Reactivate microphone if:
+                # 1. We were playing audio and now have 500ms+ silence, OR
+                # 2. Response completed 2+ seconds ago and we got minimal/no audio
+                should_reactivate = (
+                    (self.audio_playback_active and silence_duration > 0.5) or
+                    (self.response_complete_time > 0 and response_age > 2.0 and self.total_audio_received < 0.5)
+                )
+                
+                if should_reactivate:
+                    with self.audio_lock:
+                        self.audio_playback_active = False
+                        if self.ai_is_speaking:
+                            self.ai_is_speaking = False
+                            print("🎤 Audio playback finished - microphone reactivated")
+                            # Reset counters
+                            self.response_complete_time = 0
+                            self.total_audio_received = 0
+                
+                # Return silence
                 silence = b'\x00' * bytes_needed
                 return (silence, pyaudio.paContinue)
                 
         except Exception as e:
             print(f"[Audio Output Error]: {e}")
+            # On error, ensure microphone gets reactivated
+            with self.audio_lock:
+                if self.ai_is_speaking:
+                    self.ai_is_speaking = False
+                    print("🎤 Audio error - microphone reactivated")
             silence = b'\x00' * (frame_count * 2)
             return (silence, pyaudio.paContinue)
 
@@ -198,17 +350,14 @@ class RealtimeConversation:
             
             # Try multiple connection methods for compatibility
             connection_methods = [
-                # Method 1: Modern websockets with extra_headers
                 lambda: websockets.connect(url, extra_headers={
                     "Authorization": f"Bearer {self.api_key}",
                     "OpenAI-Beta": "realtime=v1"
                 }),
-                # Method 2: Alternative header method (for older versions)
                 lambda: websockets.connect(url, additional_headers={
                     "Authorization": f"Bearer {self.api_key}",
                     "OpenAI-Beta": "realtime=v1"
                 }),
-                # Method 3: Basic connection (will need manual auth)
                 lambda: websockets.connect(url)
             ]
             
@@ -226,22 +375,17 @@ class RealtimeConversation:
             
             if not connection_successful:
                 print("[Connection Error]: All connection methods failed")
-                print("\nTroubleshooting steps:")
-                print("1. Update websockets: pip install --upgrade websockets")
-                print("2. Check your OpenAI API key is correct")
-                print("3. Ensure you have Realtime API access")
-                print("4. Check your internet connection")
                 return False
             
             self.connected = True
             
-            # Configure session with correct audio settings
+            # Configure session with enhanced settings
             session_config = {
                 "type": "session.update",
                 "session": {
                     "modalities": ["text", "audio"],
                     "instructions": self.system_prompt,
-                    "voice": "alloy",  # Use alloy for most natural voice
+                    "voice": "alloy",
                     "input_audio_format": "pcm16",
                     "output_audio_format": "pcm16",
                     "input_audio_transcription": {"model": "whisper-1"},
@@ -249,31 +393,56 @@ class RealtimeConversation:
                         "type": "server_vad",
                         "threshold": 0.5,
                         "prefix_padding_ms": 300,
-                        "silence_duration_ms": 1000  # Increased for better turn detection
+                        "silence_duration_ms": 1200  # Slightly longer for elderly users
                     }
                 }
             }
             
             await self.websocket.send(json.dumps(session_config))
             print("[System]: ✅ Connected to Realtime API!")
+            
+            # Log connection to history
+            self.history.add_message(
+                "system", 
+                "Connected to Realtime API", 
+                "system",
+                {"image_url": self.image_url, "session_config": session_config}
+            )
+            
             return True
             
         except Exception as e:
             print(f"[Connection Error]: {e}")
-            print("\nTroubleshooting steps:")
-            print("1. Update websockets: pip install --upgrade websockets")
-            print("2. Check your OpenAI API key")
-            print("3. Ensure you have Realtime API access")
             self.connected = False
             return False
 
+    def set_listening_state(self, enabled: bool):
+        """Control whether the system listens for user input"""
+        with self.audio_lock:
+            self.listening_enabled = enabled
+            status = "enabled" if enabled else "disabled"
+            print(f"[Audio Control]: Listening {status}")
+
+    def set_ai_speaking_state(self, speaking: bool):
+        """Control AI speaking state to manage turn-taking"""
+        with self.audio_lock:
+            self.ai_is_speaking = speaking
+            if speaking:
+                print("🔇 AI speaking - microphone muted")
+            else:
+                print("🎤 AI finished - microphone active")
+
     async def _send_audio(self, audio_data):
-        """Send audio data to Realtime API"""
+        """Send audio data to Realtime API with turn-taking control"""
         if not self.connected or not self.websocket:
             return
             
+        # Double-check we should be sending audio
+        with self.audio_lock:
+            if self.ai_is_speaking or not self.listening_enabled:
+                return
+            
         try:
-            # Encode audio as base64
             audio_base64 = base64.b64encode(audio_data).decode('utf-8')
             
             message = {
@@ -286,12 +455,31 @@ class RealtimeConversation:
         except Exception as e:
             print(f"[Audio Send Error]: {e}")
 
+    def _trigger_blossom_animation(self, audio_length: float, delay: float = 0.0):
+        """Trigger Blossom animation in a separate thread"""
+        if self.blossom:
+            try:
+                robot_thread = threading.Thread(
+                    target=self.blossom.do_prompt_sequence_matching,
+                    kwargs={"audio_length": audio_length, "delay_time": delay}
+                )
+                robot_thread.daemon = True
+                robot_thread.start()
+                return robot_thread
+            except Exception as e:
+                print(f"[Blossom Error]: Failed to trigger animation: {e}")
+                return None
+        return None
+
     async def listen_for_responses(self):
         """Listen for responses from Realtime API"""
         try:
+            current_response_text = ""
+            response_start_time = None
+            
             async for message in self.websocket:
                 event = json.loads(message)
-                await self._handle_event(event)
+                await self._handle_event(event, current_response_text, response_start_time)
                 
         except websockets.exceptions.ConnectionClosed:
             print("[System]: Connection closed by server")
@@ -300,8 +488,8 @@ class RealtimeConversation:
             print(f"[Listen Error]: {e}")
             self.connected = False
 
-    async def _handle_event(self, event):
-        """Handle events from Realtime API"""
+    async def _handle_event(self, event, current_response_text="", response_start_time=None):
+        """Handle events from Realtime API with enhanced logging and Blossom integration"""
         event_type = event.get("type")
         
         if event_type == "session.created":
@@ -309,42 +497,130 @@ class RealtimeConversation:
             
         elif event_type == "input_audio_buffer.speech_started":
             print("🎤 Listening...")
+            self.current_speech_start = time.time()
             
         elif event_type == "input_audio_buffer.speech_stopped":
             print("🤖 Processing...")
+            if hasattr(self, 'current_speech_start'):
+                speech_duration = time.time() - self.current_speech_start
+                self.performance_metrics['last_speech_duration'] = speech_duration
+            
+        elif event_type == "response.audio_transcript.started":
+            # AI started speaking - disable listening
+            self.set_ai_speaking_state(True)
+            response_start_time = time.time()
             
         elif event_type == "conversation.item.input_audio_transcription.completed":
             transcript = event.get("transcript", "")
             print(f"[You said]: {transcript}")
             
+            # Add user message to history
+            self.history.add_message(
+                "user", 
+                transcript, 
+                "audio",
+                {
+                    "speech_duration": self.performance_metrics.get('last_speech_duration', 0),
+                    "transcription_confidence": event.get("confidence", None)
+                }
+            )
+            
         elif event_type == "response.audio.delta":
-            # Received audio from AI - handle properly
+            # Handle AI audio response
             audio_data = event.get("delta", "")
             if audio_data:
                 try:
-                    # Decode base64 audio
                     audio_bytes = base64.b64decode(audio_data)
+                    audio_duration = len(audio_bytes) / (self.sample_rate * 2)  # 2 bytes per sample
+                    self.total_audio_received += audio_duration
                     
-                    # Add to queue for playback
                     self.audio_queue.put(audio_bytes)
                     
+                    # Mark that we're receiving audio - this will disable listening
+                    if not self.ai_is_speaking:
+                        self.set_ai_speaking_state(True)
+                        print(f"[Debug]: Started receiving audio, total so far: {self.total_audio_received:.2f}s")
+                    
+                    # Signal Blossom
+                    try:
+                        self.signal_queue.put(audio_duration, block=False)
+                    except queue.Full:
+                        pass  # Queue is full, skip this update
+                        
                 except Exception as e:
                     print(f"[Audio Decode Error]: {e}")
                     
         elif event_type == "response.text.delta":
-            # Received text response (for display)
-            text = event.get("delta", "")
-            print(text, end="", flush=True)
+            # Accumulate text response
+            text_delta = event.get("delta", "")
+            current_response_text += text_delta
+            print(text_delta, end="", flush=True)
+            
+        elif event_type == "response.audio_transcript.delta":
+            # Handle audio transcript (what the AI is saying)
+            transcript_delta = event.get("delta", "")
+            current_response_text += transcript_delta
             
         elif event_type == "response.done":
-            print("\n[Response complete]")
+            print(f"\n[Response complete] - Total audio received: {self.total_audio_received:.2f}s")
+            
+            # Mark when response completed for fallback reactivation
+            self.response_complete_time = time.time()
+            
+            # If we received very little or no audio, reactivate immediately
+            if self.total_audio_received < 0.2:  # Less than 200ms of audio
+                print("[Debug]: Minimal audio received, reactivating microphone immediately")
+                self.set_ai_speaking_state(False)
+            
+            # Add assistant response to history
+            if current_response_text.strip():
+                self.history.add_message(
+                    "assistant", 
+                    current_response_text.strip(), 
+                    "audio",
+                    {
+                        "response_time": time.time() - (response_start_time or time.time()),
+                        "response_length": len(current_response_text),
+                        "audio_duration": self.total_audio_received
+                    }
+                )
+            
+            # Get estimated audio length and trigger Blossom animation
+            try:
+                estimated_audio_length = max(self.signal_queue.get(timeout=1.0), self.total_audio_received)
+                if estimated_audio_length > 0:
+                    self._trigger_blossom_animation(estimated_audio_length, delay=0.0)
+            except queue.Empty:
+                # Fallback: use total received audio or minimum 2s
+                fallback_duration = max(self.total_audio_received, 2.0)
+                self._trigger_blossom_animation(fallback_duration, delay=0.0)
+            
+            # Reset for next response
+            current_response_text = ""
+            response_start_time = None
+            
+        elif event_type == "response.cancelled":
+            # AI response was cancelled - re-enable listening immediately since no audio
+            print("\n[Response cancelled]")
+            self.set_ai_speaking_state(False)
             
         elif event_type == "error":
             error_msg = event.get("error", {}).get("message", "Unknown error")
             print(f"[API Error]: {error_msg}")
+            
+            # Re-enable listening on error immediately
+            self.set_ai_speaking_state(False)
+            
+            # Log error to history
+            self.history.add_message(
+                "system", 
+                f"API Error: {error_msg}", 
+                "error",
+                {"error_details": event.get("error", {})}
+            )
 
     def evaluate_response(self, text):
-        """Simple response evaluation for elderly users"""
+        """Enhanced response evaluation"""
         if not text:
             return False, "Empty response"
             
@@ -359,8 +635,18 @@ class RealtimeConversation:
         return True, "Response appropriate"
 
     async def start_conversation(self):
-        """Start the conversation loop"""
+        """Start the enhanced conversation with image context"""
         self.running = True
+        
+        # Build initial greeting with image context
+        if self.image_url:
+            initial_message = """Hello! I'm Blossom, your friendly companion. I have an image that I'd love for you to describe to me in detail. 
+
+Take your time to look at the image and tell me everything you can see - the people, objects, colors, setting, and anything else that catches your attention. Don't worry about getting everything perfect; I'm here to help guide you through it!
+
+What do you notice first when you look at the image?"""
+        else:
+            initial_message = """Hello! I'm Blossom, your friendly companion. I'm here to have a nice conversation with you. What would you like to talk about today?"""
         
         # Send initial greeting
         greeting = {
@@ -368,9 +654,22 @@ class RealtimeConversation:
             "item": {
                 "type": "message",
                 "role": "assistant",
-                "content": [{"type": "text", "text": "Hello! I'm Blossom, your friendly companion. I need you to describe me the image that you are seeing."}]
+                "content": [{"type": "text", "text": initial_message}]
             }
         }
+        
+        # Add image context if provided
+        if self.image_url:
+            # Add system message about the image
+            image_context = {
+                "type": "conversation.item.create",
+                "item": {
+                    "type": "message",
+                    "role": "system",
+                    "content": [{"type": "text", "text": f"Image URL for reference: {self.image_url}. Guide the user to describe this image in detail."}]
+                }
+            }
+            await self.websocket.send(json.dumps(image_context))
         
         await self.websocket.send(json.dumps(greeting))
         
@@ -379,27 +678,37 @@ class RealtimeConversation:
             "type": "response.create",
             "response": {"modalities": ["text", "audio"]}
         }
-
-        # It is necessary to evaluate the response
-        eval_response = self.evaluate_response("text")
-        if not eval_response[0]:
-            # If response is not appropriate, send a default message instead
-            response_request["response"]["modalities"] = ["text"]
-            response_request["response"]["text"] = "Keep going, I am hearing."
-            
+        
         await self.websocket.send(json.dumps(response_request))
         
-        print("\n" + "="*50)
-        print("🌸 Conversation Started!")
+        # Log session start
+        self.history.add_message(
+            "assistant", 
+            initial_message, 
+            "audio",
+            {
+                "session_type": "image_description" if self.image_url else "general_conversation",
+                "image_url": self.image_url
+            }
+        )
+        
+        print("\n" + "="*60)
+        print("🌸 Enhanced Conversation Started!")
+        if self.image_url:
+            print("🖼️  Image Description Session Active")
+            print(f"📸 Image: {self.image_url}")
+        if self.blossom:
+            print("🤖 Blossom animations enabled")
         print("💬 Start talking - I'll listen and respond")
         print("⏹️  Press Ctrl+C to end the conversation")
-        print("="*50)
+        print("="*60)
         
         # Listen for responses
         await self.listen_for_responses()
 
     def cleanup(self):
-        """Clean up resources"""
+        """Clean up resources and save conversation history"""
+        print("\n[System]: Cleaning up...")
         self.running = False
         self.connected = False
         
@@ -412,7 +721,19 @@ class RealtimeConversation:
             self.output_stream.close()
             
         self.audio.terminate()
-        print("\n[System]: Cleanup completed")
+        
+        # Save conversation history
+        filename = self.history.save_to_file()
+        if filename:
+            print(f"[System]: Conversation history saved to {filename}")
+        
+        # Print session summary
+        summary = self.history.get_conversation_summary()
+        print(f"[System]: Session completed")
+        print(f"[Stats]: Duration: {summary['duration_minutes']:.1f} minutes")
+        print(f"[Stats]: Messages: {summary['message_count']}")
+        
+        print("[System]: Cleanup completed")
 
     def run(self):
         """Main run method"""
@@ -442,13 +763,21 @@ class RealtimeConversation:
             print("\n[System]: Conversation ended by user")
         except Exception as e:
             print(f"[System Error]: {e}")
+            # Log error to history if available
+            if hasattr(self, 'history'):
+                self.history.add_message(
+                    "system", 
+                    f"System Error: {str(e)}", 
+                    "error",
+                    {"error_type": "system_error", "timestamp": time.time()}
+                )
         finally:
             self.cleanup()
 
 def main():
-    """Main entry point"""
-    print("Blossom - Simple Realtime Conversation System")
-    print("=" * 50)
+    """Enhanced main entry point"""
+    print("🌸 Blossom Enhanced Realtime Conversation System")
+    print("=" * 60)
     
     # Check API key
     api_key = os.getenv("OPENAI_API_KEY")
@@ -458,8 +787,21 @@ def main():
         print("OPENAI_API_KEY=your_api_key_here")
         return
     
-    # Create and run conversation system
-    conversation = RealtimeConversation(api_key)
+    # Get image URL from user or environment
+    image_url = os.getenv("IMAGE_URL")
+    if not image_url:
+        print("\n🖼️  Image Description Mode")
+        image_url = input("Enter image URL (or press Enter to skip): ").strip()
+        if not image_url:
+            print("[System]: No image provided - starting general conversation mode")
+            image_url = None
+        else:
+            print(f"[System]: Image URL set: {image_url}")
+    else:
+        print(f"[System]: Using image URL from environment: {image_url}")
+    
+    # Create and run enhanced conversation system
+    conversation = EnhancedRealtimeConversation(api_key, image_url)
     
     # Setup graceful shutdown
     def signal_handler(signum, frame):

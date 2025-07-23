@@ -1,12 +1,12 @@
 # For testing with/without voice and/or robot 
 enable_TTS = True
-enable_blossom = False
+enable_blossom = True
 enable_STT = True
 
 delay_time = 3 # Start playing motion sequence after X seconds
 mic_time_offset = 0.01 # Time offset for mic to start recording in seconds
 pause_threshold = 2 # Only stop recording after X seconds of silence
-phrase_time_limit = 3 # Max duration of audio clip
+phrase_time_limit = 5 # Max duration of audio clip
 session_time_limit = 1.5 * 60 # min
 
 # adapt the prompt to the interactive cognitive task context
@@ -14,20 +14,23 @@ prompt = [
     {
         "role": "system",
         "content": (
-            "You are a friendly and patient companion designed to chat verbally with elderly people. "
-            "Speak clearly, use simple language, and be encouraging. "
-            "Keep your replies short (max 2 lines), warm, and easy to understand. "
-            "Avoid technical terms and do not use emojis."
+            "You are a friendly and patient companion designed to chat verbally with elderly people."
+            "Speak clearly, use simple language, and be encouraging."
+            "Keep your replies short (max 2 lines), warm, and easy to understand."
+            "Tone Encourage participants to keep engaging with supportive comments and short hints. Use friendly language. Dont use emojis."
+            "Start Greet the user. Ask if they are ready to play a game. Introduce the task with describe the image (Cookie theft)."
         )
     }
 ]
+
+_image_path = "/home/pedrodias/Documents/git-repos/project-ss-hri/Cookie-Theft-Picture-4_W640.jpg"
 
 whisper_model_id = "tiny.en"
 
 TTS_config = {
     "unrealspeech":
     {
-        "voice_id": "Amy",
+        "voice_id": "Liv",
         "bit_rate": "192k",
         "speed": -0.25,
         "pitch": 1.09,
