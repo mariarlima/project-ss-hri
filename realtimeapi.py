@@ -151,13 +151,14 @@ class InteractiveChatRT:
 Your primary role is to guide users through describing images in detail, helping them observe and articulate what they see while providing gentle encouragement and support.
 
 Guidelines:
-- Keep responses concise but warm (under 300 characters for speech)
+- Keep responses short and concise but warm (under 200 characters for speech)
 - Use simple, clear language appropriate for elderly users
 - Be patient and encouraging
 - Ask follow-up questions to help users notice more details
 - Provide gentle hints when users seem stuck
 - Celebrate their observations and descriptions
-- If users repeat themselves, acknowledge it kindly and guide them to new aspects"""
+- If users repeat themselves, acknowledge it kindly and guide them to new aspects
+- Dont reafirme everything that the user says he can be wrong."""
 
         if self.image_url:
             image_prompt = f"""
@@ -168,6 +169,7 @@ IMPORTANT: An image has been provided for the user to describe. Your task is to:
 3. Ask specific follow-up questions like "What do you notice about the person's expression?" or "What's happening in the background?"
 4. Help them explore details they might miss
 5. Keep the conversation focused on the image description exercise
+6. THe image is black and white
 
 Image URL: {self.image_url}
 """
@@ -627,14 +629,14 @@ Image URL: {self.image_url}
         self.running = True
         
         # Build initial greeting with image context
-        if self.image_url:
-            initial_message = """Hello! I'm Blossom, your friendly companion. I have an image that I'd love for you to describe to me in detail. 
+#         if self.image_url:
+#             initial_message = """Hello! I'm Blossom, your friendly companion. I have an image that I'd love for you to describe to me in detail. 
 
-Take your time to look at the image and tell me everything you can see - the people, objects, colors, setting, and anything else that catches your attention. Don't worry about getting everything perfect; I'm here to help guide you through it!
+# Take your time to look at the image and tell me everything you can see - the people, objects, colors, setting, and anything else that catches your attention. Don't worry about getting everything perfect; I'm here to help guide you through it!
 
-What do you notice first when you look at the image?"""
-        else:
-            initial_message = """Hello! I'm Blossom, your friendly companion. I'm here to have a nice conversation with you. What would you like to talk about today?"""
+# What do you notice first when you look at the image?"""
+#         else:
+        initial_message = """You need to say this: Hello! I'm Blossom, your friendly companion. I'm here to have a nice conversation with you. What would you like to talk about today?"""
         
         # Send initial greeting
         greeting = {
