@@ -43,7 +43,7 @@ These include different sequences (of customised duration) of sighing, posture s
 
 - Discuss design and ethical considerations for deploying conversational AI in real-world residential and clinical settings.
 
-## ⚙️ Setup & dependencies
+## ⚙️ Setup & Dependencies
 Clone the repository
 ```
 git clone <repo_url>
@@ -57,8 +57,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## 🚀 Get started
+## 🚀 Get Started
 Check the proposed tasks and follow the step-by-step instructions in the files:
-- [📄 `1_verbal_hri.ipynb`](./1_verbal_hri.ipynb)
-- [📄 `2_sar_integration.ipynb`](./2_sar_integration.ipynb)
-- [📄 `3_ml_cog_analysis.ipynb`](./3_ml_cog_analysis.ipynb)
+- [`1_verbal_hri.ipynb`](./1_verbal_hri.ipynb)
+- [`2_sar_integration.ipynb`](./2_sar_integration.ipynb)
+- [`3_ml_cog_analysis.ipynb`](./3_ml_cog_analysis.ipynb)
