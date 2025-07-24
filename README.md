@@ -27,8 +27,8 @@ Idle motions will be implemented as actuations for each of Blossom’s four moto
 These include different sequences (of customised duration) of sighing, posture sways, and gaze shifts.
 
 <div align="center">
-  <img src="./images/robotic-platform.png" alt="Blossom" width="200"/>
-  <p><em>=Blossom robot platform.</em></p>
+  <img src="./images/robotic-platform.png" alt="Blossom" width="400"/>
+  <p><em>Blossom robot platform.</em></p>
 </div>
 
 
