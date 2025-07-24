@@ -21,6 +21,11 @@ As the global population ages, the demand for accessible, scalable tools to supp
 - Implement robot motion sequences/gestures (e.g., nodding).
 - Synchronise robot motion with speech duration.
 
+#### Robotic Platform 
+
+![Alt text](./images/robotic-platform.png)
+
+
 ### 3. ML Cognitive Analysis from Speech
 
 - Automatic transcription and speech diarisation.
@@ -34,11 +39,13 @@ As the global population ages, the demand for accessible, scalable tools to supp
 
 ## ⚙️ Setup & dependencies
 - Clone the repository
-- Create your virtual environment and install dependencies
-
 ```
 git clone <repo_url>
 cd <project_directory>
+```
+
+- Create your virtual environment and install dependencies
+```
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
