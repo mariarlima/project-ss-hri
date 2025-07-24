@@ -43,7 +43,7 @@ These include different sequences (of customised duration) of sighing, posture s
 
 - Discuss design and ethical considerations for deploying conversational AI in real-world residential and clinical settings.
 
-## ⚙️ Setup & Dependencies
+## ⚙️ Setup 
 Clone the repository
 ```
 git clone <repo_url>
