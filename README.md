@@ -22,8 +22,14 @@ As the global population ages, the demand for accessible, scalable tools to supp
 - Synchronise robot motion with speech duration.
 
 #### Robotic Platform 
+This project will use the updated version of the inexpensive Blossom robot, an [open-source](https://github.com/interaction-lab/Blossom-Controller), 3D-printed platform with a gray crocheted exterior, to create a simple and engaging appearance.
+Idle motions will be implemented as actuations for each of Blossom’s four motors to manually selected goal positions. 
+These include different sequences (of customised duration) of sighing, posture sways, and gaze shifts.
 
-![Alt text](./images/robotic-platform.png)
+<div align="center">
+  <img src="./images/robotic-platform.png" alt="Blossom" width="200"/>
+  <p><em>=Blossom robot platform.</em></p>
+</div>
 
 
 ### 3. ML Cognitive Analysis from Speech
