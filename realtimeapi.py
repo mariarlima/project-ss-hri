@@ -27,7 +27,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from blossom_wrapper import BlossomWrapper
-BLOSSOM_AVAILABLE = False # Enable Blossom
+BLOSSOM_AVAILABLE = True # Enable Blossom
 
 # Load environment variables from .env file in the root file
 load_dotenv()
@@ -515,6 +515,11 @@ Image URL: {self.image_url}
                         self.audio_start_time = time.time()
                         self.set_ai_speaking_state(True)
                         print(f"[Debug]: Started receiving audio")
+
+                        # Blossom: estimate duration and trigger
+                        estimated_audio_length = len(audio_bytes) / (self.sample_rate * 2)
+                        self._trigger_blossom_animation(estimated_audio_length)
+
                         
                 except Exception as e:
                     print(f"[Audio Decode Error]: {e}")
@@ -531,8 +536,8 @@ Image URL: {self.image_url}
             current_response_text += transcript_delta
             
         elif event_type == "response.done":
-            print(f"\n[Response complete] - Total audio received: {self.total_audio_received:.2f}s")
-            self.response_complete_time = time.time()
+            print("[Debug]: Response done received. Waiting for audio to finish...")
+            self._wait_for_audio_end_and_reactivate_mic()
 
             # Guarda o texto no histórico
             if current_response_text.strip():
@@ -587,6 +592,15 @@ Image URL: {self.image_url}
                 "error",
                 {"error_details": event.get("error", {})}
             )
+
+    def _wait_for_audio_end_and_reactivate_mic(self):
+        """Checks if audio playback has finished before reactivating mic"""
+        if self.audio_queue.empty() and len(self.audio_buffer) == 0:
+            self._reactivate_microphone()
+        else:
+            # Retry after short delay
+            threading.Timer(0.2, self._wait_for_audio_end_and_reactivate_mic).start()
+
 
     def _reactivate_microphone(self):
         """Reactivate microphone after audio finishes"""
